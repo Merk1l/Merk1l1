@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Анаграммы: Кабан → Банка</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; }
+    .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #2c3e50; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input[type="text"] { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { margin-top: 20px; padding: 10px 20px; background: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #219653; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Поиск анаграмм (Кабан → Банка)</h2>
+    <form action="search.php" method="POST">
+      <label for="letters">Введите буквы (например: кабан):</label>
+      <input type="text" id="letters" name="letters" required maxlength="10" pattern="[а-яА-ЯёЁ]+">
+      <button type="submit">Найти слова</button>
+    </form>
+    <p><small>❗ Все буквы приводятся к нижнему регистру. Ё → Е.</small></p>
+  </div>
+</body>
+</html>
