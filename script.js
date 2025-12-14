@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'typo-typewriter': {
             title: 'Печатающийся текст',
             desc: 'Текст появляется по буквам.',
-            html: '<p class="typewriter-text" id="typewriter"></p>',
-            js: `const text = 'Привет, мир!';let i = 0;const speed = 100;function typeWriter() {if (i < text.length) {document.getElementById('typewriter').innerHTML += text.charAt(i);i++;setTimeout(typeWriter, speed);}}typeWriter();`
+            html: '<p class="typewriter-text" id="ex-typewriter"></p>',
+            js: `const text = 'Привет, мир!';let i = 0;const speed = 100;const el = container.querySelector('#ex-typewriter');if (el) {el.innerHTML = '';function typeWriter() {if (i < text.length) {el.innerHTML += text.charAt(i);i++;setTimeout(typeWriter, speed);}}typeWriter();}`
         },
         // Кнопки
         'css-basic': {
@@ -42,20 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
         'js-alert': {
             title: 'Кнопка с alert()',
             desc: 'Простейший пример взаимодействия: при клике выводится системное всплывающее окно.',
-            html: '<button class="btn-js-alert" id="alertBtn">Показать</button>',
-            js: `document.getElementById('alertBtn').addEventListener('click', () => {alert('Привет из JavaScript!');});`
+            html: '<button class="btn-js-alert" id="ex-alertBtn">Показать</button>',
+            js: `container.querySelector('#ex-alertBtn').addEventListener('click', () => {alert('Привет из JavaScript!');});`
         },
         'js-toggle': {
             title: 'Toggle класса',
             desc: 'Переключение CSS-класса при клике.',
-            html: '<button class="btn-js-toggle" id="toggleBtn">Переключить</button>',
-            js: `document.getElementById('toggleBtn').addEventListener('click', () => {document.getElementById('toggleBtn').classList.toggle('highlight');});`
+            html: '<button class="btn-js-toggle" id="ex-toggleBtn">Переключить</button>',
+            js: `container.querySelector('#ex-toggleBtn').addEventListener('click', () => {container.querySelector('#ex-toggleBtn').classList.toggle('highlight');});`
         },
         'js-counter': {
             title: 'Счётчик кликов',
             desc: 'Счётчик кликов по кнопке.',
-            html: '<button class="btn-js-counter" id="counterBtn">Кликни! (0)</button>',
-            js: `let count = 0; const btn = document.getElementById('counterBtn'); btn.addEventListener('click', () => { count++; btn.textContent = 'Кликни! (' + count + ')'; });`
+            html: '<button class="btn-js-counter" id="ex-counterBtn">Кликни! (0)</button>',
+            js: `let count = 0; const btn = container.querySelector('#ex-counterBtn'); btn.addEventListener('click', () => { count++; btn.textContent = 'Кликни! (' + count + ')'; });`
         },
         // Формы
         'form-basic': {
@@ -73,14 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
         'form-validation': {
             title: 'Валидация формы',
             desc: 'Валидация формы с помощью JavaScript.',
-            html: `<form id="validationForm" class="basic-form"><label>Имя:</label><input type="text" name="name" required><label>Email:</label><input type="email" name="email" required><button type="submit">Отправить</button><p id="formMessage"></p></form>`,
-            js: `document.getElementById('validationForm').addEventListener('submit', function(e) {e.preventDefault();const messageEl = document.getElementById('formMessage');messageEl.textContent = 'Форма отправлена!';messageEl.style.color = 'green';});`
+            html: `<form id="ex-validationForm" class="basic-form"><label>Имя:</label><input type="text" name="name" required><label>Email:</label><input type="email" name="email" required><button type="submit">Отправить</button><p id="ex-formMessage"></p></form>`,
+            js: `container.querySelector('#ex-validationForm').addEventListener('submit', function(e) {e.preventDefault();const messageEl = container.querySelector('#ex-formMessage');messageEl.textContent = 'Форма отправлена!';messageEl.style.color = 'green';});`
         },
         'form-dynamic': {
             title: 'Динамическое поле',
             desc: 'Добавление новых полей ввода.',
-            html: `<div><button id="addFieldBtn">Добавить поле</button><div id="fieldsContainer"></div></div>`,
-            js: `let fieldCount = 0; document.getElementById('addFieldBtn').addEventListener('click', () => {fieldCount++;const container = document.getElementById('fieldsContainer');const newField = document.createElement('input');newField.type = 'text';newField.placeholder = 'Поле ' + fieldCount;newField.style.display = 'block';newField.style.margin = '5px 0';container.appendChild(newField);});`
+            html: `<div><button id="ex-addFieldBtn">Добавить поле</button><div id="ex-fieldsContainer"></div></div>`,
+            js: `let fieldCount = 0; container.querySelector('#ex-addFieldBtn').addEventListener('click', () => {fieldCount++;const containerEl = container.querySelector('#ex-fieldsContainer');const newField = document.createElement('input');newField.type = 'text';newField.placeholder = 'Поле ' + fieldCount;newField.style.display = 'block';newField.style.margin = '5px 0';containerEl.appendChild(newField);});`
         },
         // Навигация
         'nav-horizontal': {
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             desc: 'Меню с выпадающим списком.',
             html: `<div class="dropdown"><button class="dropdown-btn">Меню</button><ul class="dropdown-content"><li><a href="#">Подпункт 1</a></li><li><a href="#">Подпункт 2</a></li><li><a href="#">Подпункт 3</a></li></ul></div>`,
             css: `.dropdown {position: relative; display: inline-block;}.dropdown-btn {padding: 12px 20px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;}.dropdown-content {display: none; position: absolute; background-color: var(--card-bg); min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; list-style: none; padding: 0; margin: 0; border-radius: 4px; overflow: hidden;}.dropdown-content a {color: var(--text); padding: 12px 16px; text-decoration: none; display: block; transition: background 0.2s;}.dropdown-content a:hover {background-color: #f1f1f1;}.dropdown:hover .dropdown-content {display: block;}`,
-            js: `// Для демонстрации на мобильных или при кликеconst dropdownBtn = document.querySelector('.dropdown-btn');const dropdownContent = document.querySelector('.dropdown-content');dropdownBtn.addEventListener('click', () => {dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';});`
+            js: `const btn = container.querySelector('.dropdown-btn');const content = container.querySelector('.dropdown-content');if (btn && content) {btn.addEventListener('click', (e) => {e.stopPropagation();content.style.display = content.style.display === 'block' ? 'none' : 'block';});document.addEventListener('click', () => {content.style.display = 'none';});container.addEventListener('click', (e) => e.stopPropagation());}`
         },
         'nav-sticky': {
             title: 'Липкое меню',
@@ -130,14 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
         'img-slider': {
             title: 'Слайдер изображений',
             desc: 'Простой слайдер изображений.',
-            html: `<div class="img-slider"><img id="slideImage" src="https://placehold.co/400x300/ff0000/ffffff?text=1" alt="Slide"><div><button id="prevSlide">← Назад</button><button id="nextSlide">Вперёд →</button></div></div>`,
-            js: `const images = ['https://placehold.co/400x300/ff0000/ffffff?text=1','https://placehold.co/400x300/00ff00/000000?text=2','https://placehold.co/400x300/0000ff/ffffff?text=3'];let currentImageIndex = 0;const imgElement = document.getElementById('slideImage');const prevBtn = document.getElementById('prevSlide');const nextBtn = document.getElementById('nextSlide');function updateImage() {imgElement.src = images[currentImageIndex];}prevBtn.addEventListener('click', () => {currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;updateImage();});nextBtn.addEventListener('click', () => {currentImageIndex = (currentImageIndex + 1) % images.length;updateImage();});`
+            html: `<div class="img-slider"><img id="ex-slideImage" src="https://placehold.co/400x300/ff0000/ffffff?text=1" alt="Slide"><div><button id="ex-prevSlide">← Назад</button><button id="ex-nextSlide">Вперёд →</button></div></div>`,
+            js: `const images = ['https://placehold.co/400x300/ff0000/ffffff?text=1','https://placehold.co/400x300/00ff00/000000?text=2','https://placehold.co/400x300/0000ff/ffffff?text=3'];let currentImageIndex = 0;const imgElement = container.querySelector('#ex-slideImage');const prevBtn = container.querySelector('#ex-prevSlide');const nextBtn = container.querySelector('#ex-nextSlide');function updateImage() {imgElement.src = images[currentImageIndex];}prevBtn.addEventListener('click', () => {currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;updateImage();});nextBtn.addEventListener('click', () => {currentImageIndex = (currentImageIndex + 1) % images.length;updateImage();});`
         },
         'video-controls': {
             title: 'Управление видео',
             desc: 'Кастомное управление воспроизведением.',
-            html: `<div><video id="customVideo" width="400" controls style="display: none;"><source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4"></video><button id="playPauseBtn">▶️ Воспроизвести</button></div>`,
-            js: `const video = document.getElementById('customVideo');const playPauseBtn = document.getElementById('playPauseBtn');video.style.display = 'block';playPauseBtn.addEventListener('click', () => {if (video.paused) {video.play();playPauseBtn.textContent = '⏸️ Пауза';} else {video.pause();playPauseBtn.textContent = '▶️ Воспроизвести';}});`
+            html: `<div><video id="ex-customVideo" width="400" controls style="display: none;"><source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4"></video><button id="ex-playPauseBtn">▶️ Воспроизвести</button></div>`,
+            js: `const video = container.querySelector('#ex-customVideo');const playPauseBtn = container.querySelector('#ex-playPauseBtn');video.style.display = 'block';playPauseBtn.addEventListener('click', () => {if (video.paused) {video.play();playPauseBtn.textContent = '⏸️ Пауза';} else {video.pause();playPauseBtn.textContent = '▶️ Воспроизвести';}});`
         },
         // Карточки
         'card-basic': {
@@ -155,15 +155,16 @@ document.addEventListener('DOMContentLoaded', () => {
         'card-toggle': {
             title: 'Переключение карточек',
             desc: 'Показ/скрытие карточки по кнопке.',
-            html: `<button id="toggleCardBtn">Показать/Скрыть</button><div id="toggleableCard" class="card" style="display: none; margin-top: 10px;"><h3>Скрытая карточка</h3><p>Эта карточка переключается.</p></div>`,
-            js: `document.getElementById('toggleCardBtn').addEventListener('click', () => {const card = document.getElementById('toggleableCard');card.style.display = card.style.display === 'none' ? 'block' : 'none';});`
+            html: `<button id="ex-toggleCardBtn">Показать/Скрыть</button><div id="ex-toggleableCard" class="card" style="display: none; margin-top: 10px;"><h3>Скрытая карточка</h3><p>Эта карточка переключается.</p></div>`,
+            js: `container.querySelector('#ex-toggleCardBtn').addEventListener('click', () => {const card = container.querySelector('#ex-toggleableCard');card.style.display = card.style.display === 'none' ? 'block' : 'none';});`
         },
         // Анимации
         'transition-fade': {
             title: 'Плавное появление',
-            desc: 'Элемент плавно появляется при наведении.',
-            html: '<div class="fade-element">Наведи на меня</div>',
-            css: `.fade-element {opacity: 0.5; transition: opacity 0.3s;}.fade-element:hover {opacity: 1;}`
+            desc: 'Элемент плавно появляется при клике.',
+            html: '<div class="fade-element" id="ex-fade-el">Нажми на кнопку</div><button id="ex-fade-btn">Переключить</button>',
+            css: `.fade-element {opacity: 0.3; transition: opacity 0.5s; padding: 10px; background: #0d6efd; color: white; border-radius: 6px; margin-top: 10px;}`,
+            js: `const el = container.querySelector('#ex-fade-el');const btn = container.querySelector('#ex-fade-btn');if (el && btn) {btn.addEventListener('click', () => {el.style.opacity = el.style.opacity === '1' ? '0.3' : '1';});}`
         },
         'animation-bounce': {
             title: 'Прыжок',
@@ -180,29 +181,29 @@ document.addEventListener('DOMContentLoaded', () => {
         'js-tween': {
             title: 'Плавный tween',
             desc: 'Плавное перемещение элемента.',
-            html: '<div id="tweenBox" style="width: 50px; height: 50px; background: #6f42c1; position: relative; left: 0;"></div>',
-            js: `const box = document.getElementById('tweenBox');let start = 0;const end = 300; // pxlet current = start;const duration = 1000; // mslet startTime = null;function animate(time) {if (!startTime) startTime = time;const elapsed = time - startTime;const progress = Math.min(elapsed / duration, 1);current = start + (end - start) * progress;box.style.left = current + 'px';if (progress < 1) {requestAnimationFrame(animate);}}requestAnimationFrame(animate);`
+            html: '<div id="ex-tweenBox" style="width: 50px; height: 50px; background: #6f42c1; position: relative; left: 0;"></div>',
+            js: `const box = container.querySelector('#ex-tweenBox');let start = 0;const end = 300;let current = start;const duration = 1000;let startTime = null;function animate(time) {if (!startTime) startTime = time;const elapsed = time - startTime;const progress = Math.min(elapsed / duration, 1);current = start + (end - start) * progress;box.style.left = current + 'px';if (progress < 1) {requestAnimationFrame(animate);}}if (box) requestAnimationFrame(animate);`
         },
         // Модальные окна
         'modal-basic': {
             title: 'Простая модалка',
             desc: 'Простое CSS-модальное окно.',
-            html: `<button class="modal-open-btn">Открыть</button><div class="modal-overlay" id="basicModal"><div class="modal-content"><h3>Модальное окно</h3><p>Содержимое модалки</p><button class="modal-close-btn">Закрыть</button></div></div>`,
+            html: `<button class="modal-open-btn" id="ex-openModal">Открыть</button><div class="modal-overlay" id="ex-basicModal"><div class="modal-content"><h3>Модальное окно</h3><p>Содержимое модалки</p><button class="modal-close-btn">Закрыть</button></div></div>`,
             css: `.modal-overlay {display: none;position: fixed;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.5);z-index: 1000;}.modal-content {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);background-color: var(--card-bg);padding: 20px;border-radius: 8px;box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);width: 80%;max-width: 500px;text-align: center;}.modal-close-btn {margin-top: 15px;padding: 8px 16px;background-color: #dc3545;color: white;border: none;border-radius: 4px;cursor: pointer;}`,
-            js: `const openBtn = document.querySelector('.modal-open-btn');const modal = document.getElementById('basicModal');const closeBtn = document.querySelector('.modal-close-btn');openBtn.addEventListener('click', () => { modal.style.display = 'block'; });closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });`
+            js: `const openBtn = container.querySelector('#ex-openModal');const modal = container.querySelector('#ex-basicModal');const closeBtn = modal.querySelector('.modal-close-btn');if (openBtn && modal && closeBtn) {openBtn.addEventListener('click', () => { modal.style.display = 'block'; });closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });}`
         },
         'modal-js': {
             title: 'JS-модалка',
             desc: 'Модальное окно с JavaScript.',
-            html: `<button id="jsModalBtn">Открыть JS-модалку</button><div class="modal-js-overlay" style="display:none;"><div class="modal-js-content"><h3>JS-модалка</h3><p>Содержимое</p><button class="modal-js-close">Закрыть</button></div></div>`,
+            html: `<button id="ex-jsModalBtn">Открыть JS-модалку</button><div class="modal-js-overlay" style="display:none;"><div class="modal-js-content"><h3>JS-модалка</h3><p>Содержимое</p><button class="modal-js-close">Закрыть</button></div></div>`,
             css: `.modal-js-overlay {display: none;position: fixed;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.5);z-index: 1000;}.modal-js-content {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);background-color: var(--card-bg);padding: 20px;border-radius: 8px;box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);width: 80%;max-width: 500px;text-align: center;}.modal-js-close {margin-top: 15px;padding: 8px 16px;background-color: #dc3545;color: white;border: none;border-radius: 4px;cursor: pointer;}`,
-            js: `const jsOpenBtn = document.getElementById('jsModalBtn');const jsModal = document.querySelector('.modal-js-overlay');const jsCloseBtn = document.querySelector('.modal-js-close');jsOpenBtn.addEventListener('click', () => { jsModal.style.display = 'block'; });jsCloseBtn.addEventListener('click', () => { jsModal.style.display = 'none'; });window.addEventListener('click', (e) => { if (e.target === jsModal) jsModal.style.display = 'none'; });`
+            js: `const openBtn = container.querySelector('#ex-jsModalBtn');const modal = container.querySelector('.modal-js-overlay');const closeBtn = container.querySelector('.modal-js-close');if (openBtn && modal && closeBtn) {openBtn.addEventListener('click', () => { modal.style.display = 'block'; });closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });}`
         },
         'tooltip-js': {
             title: 'JS-подсказка',
             desc: 'Подсказка при наведении (реализована через клик для демонстрации).',
-            html: '<button id="tooltipBtn">Показать подсказку</button><div id="tooltip" style="display: none; position: absolute; background: black; color: white; padding: 5px; border-radius: 4px; margin-top: 5px;">Это подсказка!</div>',
-            js: `const btn = document.getElementById('tooltipBtn');const tooltip = document.getElementById('tooltip');btn.addEventListener('click', (e) => {tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';tooltip.style.left = e.pageX + 'px';tooltip.style.top = (e.pageY + 10) + 'px';});`
+            html: '<button id="ex-tooltipBtn">Показать подсказку</button><div id="ex-tooltip" style="display: none; position: absolute; background: black; color: white; padding: 5px; border-radius: 4px; margin-top: 5px;">Это подсказка!</div>',
+            js: `const btn = container.querySelector('#ex-tooltipBtn');const tooltip = container.querySelector('#ex-tooltip');if (btn && tooltip) {btn.addEventListener('click', (e) => {tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';tooltip.style.left = (e.clientX + container.getBoundingClientRect().left) + 'px';tooltip.style.top = (e.clientY + container.getBoundingClientRect().top + 10) + 'px';});}`
         },
         // Адаптивность
         'responsive-grid': {
@@ -215,19 +216,19 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Media queries',
             desc: 'Изменение стилей при разных размерах экрана.',
             html: `<div class="mq-demo">Адаптивный текст</div>`,
-            css: `.mq-demo {font-size: 1rem;}.mq-demo {font-size: 1rem;}@media (min-width: 768px) {.mq-demo {font-size: 1.5rem;}}@media (min-width: 1024px) {.mq-demo {font-size: 2rem;}}`
+            css: `.mq-demo {font-size: 1rem;}@media (min-width: 768px) {.mq-demo {font-size: 1.5rem;}}@media (min-width: 1024px) {.mq-demo {font-size: 2rem;}}`
         },
         'resize-handler': {
             title: 'Обработчик ресайза',
             desc: 'Отслеживание изменения размера окна.',
-            html: `<p id="resizeText">Ширина окна: <span id="widthDisplay">0</span>px</p>`,
-            js: `function updateWidth() {document.getElementById('widthDisplay').textContent = window.innerWidth;}updateWidth();window.addEventListener('resize', updateWidth);`
+            html: `<p id="ex-resizeText">Ширина окна: <span id="ex-widthDisplay">0</span>px</p>`,
+            js: `const display = container.querySelector('#ex-widthDisplay');if (display) {function updateWidth() {display.textContent = window.innerWidth;}updateWidth();window.addEventListener('resize', updateWidth);}`
         },
         'touch-events': {
             title: 'События касания',
             desc: 'Обработка touch-событий.',
-            html: `<div class="touch-area" id="touchArea" style="width: 200px; height: 100px; background: #0d6efd; display: flex; align-items: center; justify-content: center; color: white;">Коснись меня</div>`,
-            js: `const touchArea = document.getElementById('touchArea');touchArea.addEventListener('touchstart', () => {touchArea.textContent = 'Коснулись!';touchArea.style.background = '#28a745';});touchArea.addEventListener('touchend', () => {setTimeout(() => {touchArea.textContent = 'Коснись меня';touchArea.style.background = '#0d6efd';}, 500);});`
+            html: `<div class="touch-area" id="ex-touchArea" style="width: 200px; height: 100px; background: #0d6efd; display: flex; align-items: center; justify-content: center; color: white;">Коснись меня</div>`,
+            js: `const touchArea = container.querySelector('#ex-touchArea');if (touchArea) {touchArea.addEventListener('touchstart', () => {touchArea.textContent = 'Коснулись!';touchArea.style.background = '#28a745';});touchArea.addEventListener('touchend', () => {setTimeout(() => {touchArea.textContent = 'Коснись меня';touchArea.style.background = '#0d6efd';}, 500);});}`
         },
         // UX
         'ux-scrollbar': {
@@ -245,9 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'ux-slider': {
             title: 'Кастомный слайдер',
             desc: 'Стилизованный слайдер.',
-            html: `<input type="range" min="0" max="100" value="50" class="custom-slider" id="slider"/><span id="sliderValue">50</span>`,
+            html: `<input type="range" min="0" max="100" value="50" class="custom-slider" id="ex-slider"/><span id="ex-sliderValue">50</span>`,
             css: `.custom-slider {-webkit-appearance: none;width: 100%;height: 10px;border-radius: 5px;background: #d3d3d3;outline: none;}.custom-slider::-webkit-slider-thumb {-webkit-appearance: none;appearance: none;width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}.custom-slider::-moz-range-thumb {width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}`,
-            js: `const slider = document.getElementById('slider');const output = document.getElementById('sliderValue');output.textContent = slider.value;slider.oninput = function() {output.textContent = this.value;};`
+            js: `const slider = container.querySelector('#ex-slider');const output = container.querySelector('#ex-sliderValue');if (slider && output) {output.textContent = slider.value;slider.oninput = function() {output.textContent = this.value;};}`
         },
         'ux-tabs': {
             title: 'Кастомные табы',
@@ -259,24 +260,23 @@ document.addEventListener('DOMContentLoaded', () => {
         'progress-bar': {
             title: 'Прогресс-бар',
             desc: 'Индикатор выполнения.',
-            html: `<div class="progress-container"><div class="progress-bar" id="progressBar" style="width: 0%; height: 20px; background: #0d6efd;"></div></div><button id="fillProgress">Заполнить</button>`,
+            html: `<div class="progress-container"><div class="progress-bar" id="ex-progressBar" style="width: 0%; height: 20px; background: #0d6efd;"></div></div><button id="ex-fillProgress">Заполнить</button>`,
             css: `.progress-container {width: 100%;background: #e9ecef;border-radius: 10px;overflow: hidden;height: 20px;margin: 10px 0;}.progress-bar {height: 100%;background: #0d6efd;transition: width 0.3s;}`,
-            js: `const fillBtn = document.getElementById('fillProgress');const bar = document.getElementById('progressBar');fillBtn.addEventListener('click', () => {bar.style.width = '100%';});`
+            js: `const fillBtn = container.querySelector('#ex-fillProgress');const bar = container.querySelector('#ex-progressBar');if (fillBtn && bar) {fillBtn.addEventListener('click', () => {bar.style.width = '100%';});}`
         },
         'calendar': {
             title: 'Календарь',
             desc: 'Простой календарь.',
-            html: `<div class="calendar"><h3 id="calendarMonth">Ноябрь 2025</h3><div class="calendar-grid" id="calendarGrid"></div></div>`,
-            js: `function generateCalendar(year, month) {const date = new Date(year, month);const firstDay = new Date(year, month, 1).getDay();const daysInMonth = new Date(year, month + 1, 0).getDate();const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];document.getElementById('calendarMonth').textContent = monthNames[month] + ' ' + year;const grid = document.getElementById('calendarGrid');grid.innerHTML = '';const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];weekdays.forEach(day => {const dayEl = document.createElement('div');dayEl.className = 'calendar-day';dayEl.textContent = day;grid.appendChild(dayEl);});for (let i = 0; i < firstDay; i++) {const emptyCell = document.createElement('div');emptyCell.className = 'calendar-date';grid.appendChild(emptyCell);}const today = new Date();for (let i = 1; i <= daysInMonth; i++) {const dateEl = document.createElement('div');dateEl.className = 'calendar-date';dateEl.textContent = i;if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {dateEl.classList.add('today');}grid.appendChild(dateEl);}}generateCalendar(2025, 10);`
+            html: `<div class="calendar"><h3 id="ex-calendarMonth">Ноябрь 2025</h3><div class="calendar-grid" id="ex-calendarGrid"></div></div>`,
+            js: `(function() {function generateCalendar(year, month, container) {const date = new Date(year, month);const firstDay = new Date(year, month, 1).getDay();const daysInMonth = new Date(year, month + 1, 0).getDate();const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];container.querySelector('#ex-calendarMonth').textContent = monthNames[month] + ' ' + year;const grid = container.querySelector('#ex-calendarGrid');grid.innerHTML = '';const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];weekdays.forEach(day => {const dayEl = document.createElement('div');dayEl.className = 'calendar-day';dayEl.textContent = day;grid.appendChild(dayEl);});for (let i = 0; i < firstDay; i++) {const emptyCell = document.createElement('div');emptyCell.className = 'calendar-date';grid.appendChild(emptyCell);}const today = new Date();for (let i = 1; i <= daysInMonth; i++) {const dateEl = document.createElement('div');dateEl.className = 'calendar-date';dateEl.textContent = i;if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {dateEl.classList.add('today');}grid.appendChild(dateEl);}}generateCalendar(2025, 10, container);})()`
         },
         'slider': {
             title: 'Слайдер',
             desc: 'Интерактивный слайдер значений.',
-            html: `<input type="range" min="0" max="100" value="50" class="custom-slider" id="jsSlider"/><span id="jsSliderValue">50</span>`,
+            html: `<input type="range" min="0" max="100" value="50" class="custom-slider" id="ex-jsSlider"/><span id="ex-jsSliderValue">50</span>`,
             css: `.custom-slider {-webkit-appearance: none;width: 100%;height: 10px;border-radius: 5px;background: #d3d3d3;outline: none;}.custom-slider::-webkit-slider-thumb {-webkit-appearance: none;appearance: none;width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}.custom-slider::-moz-range-thumb {width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}`,
-            js: `const slider = document.getElementById('jsSlider');const output = document.getElementById('jsSliderValue');output.textContent = slider.value;slider.oninput = function() {output.textContent = this.value;};`
+            js: `const slider = container.querySelector('#ex-jsSlider');const output = container.querySelector('#ex-jsSliderValue');if (slider && output) {output.textContent = slider.value;slider.oninput = function() {output.textContent = this.value;};}`
         },
-        // Медиа (добавлено для полноты, если 'img-responsive' остался где-то в HTML)
         'img-responsive': {
             title: 'Адаптивное изображение',
             desc: 'Изображение, которое подстраивается под размер экрана.',
@@ -285,158 +285,79 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#039;');
+    }
+
     // --- Переключение вкладок (CSS/JS) в каждом разделе ---
     document.querySelectorAll('.section-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const section = btn.dataset.section;
-            const sectionId = btn.closest('section').id;
-            const nav = btn.closest('.section-nav');
-            const detailBoxId = `${sectionId}-detail`;
-            const detailBox = document.getElementById(detailBoxId);
-
-            // Убираем активные классы
-            nav.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
-            const examplesId = `${sectionId}-${section}-examples`;
-            document.querySelectorAll('.examples').forEach(ex => ex.classList.remove('active'));
-            document.getElementById(examplesId).classList.add('active');
-
-            // Добавляем активный класс кнопке
+            const section = btn.closest('.section-content');
+            const type = btn.dataset.section;
+            section.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            // Сбрасываем detail box
-            if (detailBox) {
-                detailBox.style.display = 'none';
-            }
+            section.querySelectorAll('.examples').forEach(el => el.classList.remove('active'));
+            const target = section.querySelector(`.examples[id$="-${type}-examples"]`);
+            if (target) target.classList.add('active');
+            const detailBox = section.querySelector('.detail-box');
+            if (detailBox) detailBox.style.display = 'none';
         });
     });
 
-    // --- Обработка кликов по КНОПКАМ внутри примеров ---
-    // ВАЖНО: вешаем на кнопку, а не на .example-card
+    // --- Обработка кликов по кнопкам "Пример" ---
     document.querySelectorAll('.example-card button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Останавливаем всплытие, чтобы клик на кнопке не "срабатывал" как клик на .example-card, если он тоже где-то висит
-            e.stopPropagation();
-
-            // Находим родительский .example-card для этой кнопки
-            const exampleCard = this.closest('.example-card');
-            if (!exampleCard) {
-                console.error('Кнопка не находится внутри .example-card');
-                return;
-            }
-
-            // Получаем ID примера из data-example у .example-card
-            const exampleId = exampleCard.dataset.example;
-            if (!exampleId) {
-                console.error('У .example-card не найден атрибут data-example');
-                return;
-            }
-
-            // Ищем данные примера
+        button.addEventListener('click', function () {
+            const card = this.closest('.example-card');
+            const exampleId = card.dataset.example;
+            const section = card.closest('section');
+            const detailBox = document.getElementById(`${section.id}-detail`);
             const ex = examplesData[exampleId];
 
-            if (!ex) {
-                console.error(`Пример с ID "${exampleId}" не найден в examplesData.`);
-                return; // Не ломаем скрипт, просто выводим ошибку
-            }
+            if (!ex || !detailBox) return;
 
-            // Находим соответствующий detail-box для текущей секции
-            const sectionId = exampleCard.closest('section').id;
-            const detailBoxId = `${sectionId}-detail`;
-            const detailBox = document.getElementById(detailBoxId);
+            detailBox.innerHTML = `
+                <h2>${ex.title}</h2>
+                <p>${ex.desc}</p>
+                <div class="preview-area">${ex.html}</div>
+                <div class="code-block"></div>
+            `;
+            detailBox.style.display = 'block';
 
-            if (!detailBox) {
-                console.error(`detailBox с ID "${detailBoxId}" не найден.`);
-                return;
-            }
-
-            // Подготавливаем код для отображения
-            let codeHtml = ex.html;
-            let codeCss = ex.css || '';
-            let codeJs = ex.js || '';
-
-            const escapedHtml = escapeHtml(codeHtml);
-            const escapedCss = escapeHtml(codeCss);
-            const escapedJs = escapeHtml(codeJs);
-
-            // Вставляем содержимое в detail-box
-            detailBox.innerHTML = `<h2>${ex.title}</h2><p>${ex.desc}</p><div class="preview-area">${codeHtml}</div><div class="code-block"></div>`;
-            detailBox.style.display = 'block'; // Показываем detail box
-
-            // Находим блок кода и вставляем код как текст
+            const previewArea = detailBox.querySelector('.preview-area');
             const codeBlock = detailBox.querySelector('.code-block');
-            if (codeBlock) {
-                let fullCode = escapedHtml + '<style>' + escapedCss + '</style>';
-                if (codeJs) {
-                    fullCode += '<script>' + escapedJs + '</script>';
-                }
-                codeBlock.textContent = fullCode;
+            let codeStr = escapeHtml(ex.html);
+            if (ex.css) codeStr += `\n<style>\n${escapeHtml(ex.css)}\n</style>`;
+            if (ex.js) codeStr += `\n<script>\n${escapeHtml(ex.js)}\n</script>`;
+            if (codeBlock) codeBlock.textContent = codeStr;
 
-                // Убираем старые слушатели с кнопок в preview, чтобы избежать дублирования
-                removeEventListeners();
-
-                // Выполняем JS для демонстрации (только если он есть)
-                if (ex.js) {
-                    try {
-                        eval(ex.js);
-                    } catch (error) {
-                        console.error("Ошибка выполнения JS примера:", error);
-                    }
+            // Выполняем JS в контексте previewArea
+            if (ex.js) {
+                try {
+                    new Function('container', ex.js)(previewArea);
+                } catch (err) {
+                    console.error('Ошибка в примере', exampleId, err);
                 }
             }
         });
     });
 
-    // --- Удаляем все event listeners из preview-кнопок ---
-    function removeEventListeners() {
-        const previewBtns = document.querySelectorAll('.preview-area button');
-        previewBtns.forEach(btn => {
-            // Создаём клон кнопки без событий
-            const newBtn = btn.cloneNode(true);
-            btn.parentNode.replaceChild(newBtn, btn);
-        });
-    }
-
-    function escapeHtml(str) {
-        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-    }
-
-    // --- Плавная прокрутка по якорям ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+    // --- Якорная навигация ---
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
+            document.querySelector(link.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
         });
-    });
-
-    // --- Инициализация: показываем первый пример в каждом разделе ---
-    document.querySelectorAll('.section-btn.active').forEach(btn => {
-        const section = btn.dataset.section;
-        const sectionId = btn.closest('section').id;
-        const examplesId = `${sectionId}-${section}-examples`;
-        const examplesEl = document.getElementById(examplesId);
-        if (examplesEl) {
-            const firstExampleCard = examplesEl.querySelector('.example-card');
-            if (firstExampleCard) {
-                const firstExampleBtn = firstExampleCard.querySelector('button');
-                if (firstExampleBtn) {
-                    // Симулируем клик по кнопке первого примера
-                    firstExampleBtn.click();
-                }
-            }
-        }
     });
 
     // --- Тема ---
     const themeBtn = document.getElementById('theme-btn');
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme) {
-        document.body.setAttribute('data-theme', currentTheme);
-        themeBtn.textContent = currentTheme === 'dark' ? '☀️ Светлая тема' : '🌙 Тёмная тема';
-    }
-
+    const saved = localStorage.getItem('theme') || 'light';
+    document.body.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ Светлая тема' : '🌙 Тёмная тема';
     themeBtn.addEventListener('click', () => {
         const isDark = document.body.getAttribute('data-theme') === 'dark';
         const newTheme = isDark ? 'light' : 'dark';
