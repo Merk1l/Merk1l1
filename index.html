@@ -1,53 +1,455 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Анаграммы</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #f9f9f9;
-      color: #333;
-    }
-    h1 { text-align: center; color: #2c3e50; }
-    label { display: block; margin-top: 20px; font-weight: bold; }
-    input { width: 100%; padding: 10px; font-size: 16px; margin-top: 5px; }
-    button {
-      margin-top: 15px;
-      padding: 12px 24px;
-      font-size: 16px;
-      background: #3498db;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover { background: #2980b9; }
-    #result {
-      margin-top: 30px;
-      padding: 15px;
-      background: #fff;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .word { font-weight: bold; color: #27ae60; }
-    .error { color: #e74c3c; font-weight: bold; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Веб-методичка: Полный гайд по HTML, CSS и JS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Анаграммы: Кабан → Банка</h1>
 
-  <label for="input">Введите буквы (например: кабан):</label>
-  <input type="text" id="input" placeholder="кабан" maxlength="10" pattern="[а-яёА-ЯЁ]+">
-  <button onclick="findAnagrams()">Найти слова</button>
+  <header class="main-header">
+    <div class="container">
+      <h1>Веб-методичка</h1>
+      <p>Полный гайд по HTML, CSS и JavaScript</p>
+      <div class="theme-toggle">
+        <button id="theme-btn">🌙 Тёмная тема</button>
+      </div>
+    </div>
+  </header>
 
-  <div id="result"></div>
+  <nav class="main-nav">
+    <ul class="nav-list">
+      <li><a href="#typography">1. Текст и типографика</a></li>
+      <li><a href="#buttons">2. Кнопки</a></li>
+      <li><a href="#forms">3. Формы и поля ввода</a></li>
+      <li><a href="#navigation">4. Навигация и меню</a></li>
+      <li><a href="#media">5. Изображения и медиа</a></li>
+      <li><a href="#cards">6. Карточки и сетки</a></li>
+      <li><a href="#animations">7. Анимации и переходы</a></li>
+      <li><a href="#modals">8. Модальные окна и всплывающие элементы</a></li>
+      <li><a href="#responsive">9. Адаптивность и мобильность</a></li>
+      <li><a href="#ux">11. UX-улучшения</a></li>
+      <li><a href="#widgets">12. Интерактивные виджеты</a></li>
+    </ul>
+  </nav>
 
-  <script src="dict.js"></script>
+  <main class="main-content">
+
+    <!-- Раздел 1: Текст и типографика -->
+    <section id="typography">
+      <h2>1. Текст и типографика</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-стили</button>
+          <button class="section-btn" data-section="js">JavaScript-эффекты</button>
+        </div>
+
+        <div class="examples active" id="typography-css-examples">
+          <div class="example-card" data-example="typo-responsive">
+            <p>Адаптивный текст</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="typo-gradient">
+            <p>Градиентный текст</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="typography-js-examples">
+          <div class="example-card" data-example="typo-typewriter">
+            <p>Печатающийся текст</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="typo-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 2: Кнопки -->
+    <section id="buttons">
+      <h2>2. Кнопки</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-кнопки</button>
+          <button class="section-btn" data-section="js">JavaScript-кнопки</button>
+        </div>
+
+        <div class="examples active" id="buttons-css-examples">
+          <div class="example-card" data-example="css-basic">
+            <p>Базовая кнопка</p>
+            <button class="btn-basic">Нажми</button>
+          </div>
+          <div class="example-card" data-example="css-gradient">
+            <p>Градиент</p>
+            <button class="btn-gradient">Нажми</button>
+          </div>
+          <div class="example-card" data-example="css-hover">
+            <p>Анимация при наведении</p>
+            <button class="btn-hover">Нажми</button>
+          </div>
+        </div>
+
+        <div class="examples" id="buttons-js-examples">
+          <div class="example-card" data-example="js-alert">
+            <p>alert()</p>
+            <button class="btn-js-alert">Показать</button>
+          </div>
+          <div class="example-card" data-example="js-toggle">
+            <p>Toggle класса</p>
+            <button class="btn-js-toggle">Переключить</button>
+          </div>
+          <div class="example-card" data-example="js-counter">
+            <p>Счётчик кликов</p>
+            <button class="btn-js-counter">Кликни!</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="buttons-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 3: Формы и поля ввода -->
+    <section id="forms">
+      <h2>3. Формы и поля ввода</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-стили</button>
+          <button class="section-btn" data-section="js">JavaScript-логика</button>
+        </div>
+
+        <div class="examples active" id="forms-css-examples">
+          <div class="example-card" data-example="form-basic">
+            <p>Простая форма</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="form-styled">
+            <p>Стилизованная форма</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="forms-js-examples">
+          <div class="example-card" data-example="form-validation">
+            <p>Валидация формы</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="form-dynamic">
+            <p>Динамическое поле</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="forms-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 4: Навигация и меню -->
+    <section id="navigation">
+      <h2>4. Навигация и меню</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-меню</button>
+          <button class="section-btn" data-section="js">JavaScript-меню</button>
+        </div>
+
+        <div class="examples active" id="navigation-css-examples">
+          <div class="example-card" data-example="nav-horizontal">
+            <p>Горизонтальное меню</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="nav-dropdown">
+            <p>Выпадающее меню</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="nav-sticky">
+            <p>Липкое меню</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="navigation-js-examples">
+          <div class="example-card" data-example="nav-mobile">
+            <p>Мобильное меню</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="nav-active">
+            <p>Активный пункт</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="nav-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 5: Изображения и медиа -->
+    <section id="media">
+      <h2>5. Изображения и медиа</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-медиа</button>
+          <button class="section-btn" data-section="js">JavaScript-медиа</button>
+        </div>
+
+        <div class="examples active" id="media-css-examples">
+          <div class="example-card" data-example="img-responsive">
+            <p>Адаптивное изображение</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="img-rounded">
+            <p>Круглое изображение</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="video-embed">
+            <p>Видео</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="media-js-examples">
+          <div class="example-card" data-example="img-slider">
+            <p>Слайдер изображений</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="video-controls">
+            <p>Управление видео</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="media-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 6: Карточки и сетки -->
+    <section id="cards">
+      <h2>6. Карточки и сетки</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-карточки</button>
+          <button class="section-btn" data-section="js">JavaScript-карточки</button>
+        </div>
+
+        <div class="examples active" id="cards-css-examples">
+          <div class="example-card" data-example="card-basic">
+            <p>Базовая карточка</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="card-hover">
+            <p>Карточка с hover</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="cards-js-examples">
+          <div class="example-card" data-example="card-toggle">
+            <p>Переключение карточек</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="cards-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 7: Анимации и переходы -->
+    <section id="animations">
+      <h2>7. Анимации и переходы</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-анимации</button>
+          <button class="section-btn" data-section="js">JavaScript-анимации</button>
+        </div>
+
+        <div class="examples active" id="animations-css-examples">
+          <div class="example-card" data-example="transition-fade">
+            <p>Плавное появление</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="animation-bounce">
+            <p>Прыжок</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="keyframes-spin">
+            <p>Вращение</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="animations-js-examples">
+          <div class="example-card" data-example="js-tween">
+            <p>Плавный tween</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="anim-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 8: Модальные окна и всплывающие элементы -->
+    <section id="modals">
+      <h2>8. Модальные окна и всплывающие элементы</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-модалки</button>
+          <button class="section-btn" data-section="js">JavaScript-модалки</button>
+        </div>
+
+        <div class="examples active" id="modals-css-examples">
+          <div class="example-card" data-example="modal-basic">
+            <p>Простая модалка</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="modals-js-examples">
+          <div class="example-card" data-example="modal-js">
+            <p>JS-модалка</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="tooltip-js">
+            <p>JS-подсказка</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="modals-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 9: Адаптивность и мобильность -->
+    <section id="responsive">
+      <h2>9. Адаптивность и мобильность</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-адаптив</button>
+          <button class="section-btn" data-section="js">JavaScript-адаптив</button>
+        </div>
+
+        <div class="examples active" id="responsive-css-examples">
+          <div class="example-card" data-example="responsive-grid">
+            <p>Адаптивная сетка</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="media-queries">
+            <p>Media queries</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="responsive-js-examples">
+          <div class="example-card" data-example="resize-handler">
+            <p>Обработчик ресайза</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="touch-events">
+            <p>События касания</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="responsive-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 11: UX-улучшения -->
+    <section id="ux">
+      <h2>11. UX-улучшения</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-улучшения</button>
+          <button class="section-btn" data-section="js">JavaScript-улучшения</button>
+        </div>
+
+        <div class="examples active" id="ux-css-examples">
+          <div class="example-card" data-example="ux-scrollbar">
+            <p>Кастомный скроллбар</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="ux-checkbox">
+            <p>Кастомный чекбокс</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="ux-js-examples">
+          <div class="example-card" data-example="ux-slider">
+            <p>Кастомный слайдер</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="ux-tabs">
+            <p>Кастомные табы</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="ux-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел 12: Интерактивные виджеты -->
+    <section id="widgets">
+      <h2>12. Интерактивные виджеты</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-виджеты</button>
+          <button class="section-btn" data-section="js">JavaScript-виджеты</button>
+        </div>
+
+        <div class="examples active" id="widgets-css-examples">
+          <div class="example-card" data-example="progress-bar">
+            <p>Прогресс-бар</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="calendar">
+            <p>Календарь</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="widgets-js-examples">
+          <!-- Убран: 'tabs' -->
+          <div class="example-card" data-example="slider">
+            <p>Слайдер</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="widgets-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="main-footer">
+    <p>&copy; 2025 Веб-методичка. Все права защищены.</p>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
