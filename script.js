@@ -275,6 +275,13 @@ document.addEventListener('DOMContentLoaded', () => {
             html: `<input type="range" min="0" max="100" value="50" class="custom-slider" id="jsSlider"/><span id="jsSliderValue">50</span>`,
             css: `.custom-slider {-webkit-appearance: none;width: 100%;height: 10px;border-radius: 5px;background: #d3d3d3;outline: none;}.custom-slider::-webkit-slider-thumb {-webkit-appearance: none;appearance: none;width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}.custom-slider::-moz-range-thumb {width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}`,
             js: `const slider = document.getElementById('jsSlider');const output = document.getElementById('jsSliderValue');output.textContent = slider.value;slider.oninput = function() {output.textContent = this.value;};`
+        },
+        // Медиа (добавлено для полноты, если 'img-responsive' остался где-то в HTML)
+        'img-responsive': {
+            title: 'Адаптивное изображение',
+            desc: 'Изображение, которое подстраивается под размер экрана.',
+            html: '<img src="https://placehold.co/600x400" alt="Пример" class="responsive-img" />',
+            css: `.responsive-img {max-width: 100%;height: auto;}`
         }
     };
 
@@ -303,27 +310,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Обработка кликов по примерам ---
+    // --- Обработка кликов по КНОПКАМ внутри примеров ---
+    // ВАЖНО: вешаем на кнопку, а не на .example-card
     document.querySelectorAll('.example-card button').forEach(button => {
         button.addEventListener('click', function(e) {
-            e.stopPropagation(); // Останавливаем всплытие, чтобы не срабатывал клик на .example-card, если он есть
-            const exampleCard = this.closest('.example-card');
-            if (!exampleCard) return;
+            // Останавливаем всплытие, чтобы клик на кнопке не "срабатывал" как клик на .example-card, если он тоже где-то висит
+            e.stopPropagation();
 
+            // Находим родительский .example-card для этой кнопки
+            const exampleCard = this.closest('.example-card');
+            if (!exampleCard) {
+                console.error('Кнопка не находится внутри .example-card');
+                return;
+            }
+
+            // Получаем ID примера из data-example у .example-card
             const exampleId = exampleCard.dataset.example;
-            const ex = examplesData[exampleId]; // Используем examplesData
+            if (!exampleId) {
+                console.error('У .example-card не найден атрибут data-example');
+                return;
+            }
+
+            // Ищем данные примера
+            const ex = examplesData[exampleId];
 
             if (!ex) {
                 console.error(`Пример с ID "${exampleId}" не найден в examplesData.`);
-                return; // ВАЖНО: не вызываем showExample, если пример не найден, чтобы не ломать скрипт
+                return; // Не ломаем скрипт, просто выводим ошибку
             }
 
+            // Находим соответствующий detail-box для текущей секции
             const sectionId = exampleCard.closest('section').id;
-            let detailBoxId = `${sectionId}-detail`;
-            // Эти ID могут отличаться в HTML, уточняем соответствие
-            // В текущем index.html ID detailBox совпадают с ID секции + '-detail'
-            // Поэтому дополнительные условия не нужны, если HTML правильный
-
+            const detailBoxId = `${sectionId}-detail`;
             const detailBox = document.getElementById(detailBoxId);
 
             if (!detailBox) {
@@ -331,33 +349,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Подготавливаем код для отображения
             let codeHtml = ex.html;
             let codeCss = ex.css || '';
             let codeJs = ex.js || '';
 
-            // Экранируем HTML/JS для безопасного отображения
             const escapedHtml = escapeHtml(codeHtml);
             const escapedCss = escapeHtml(codeCss);
             const escapedJs = escapeHtml(codeJs);
 
-            // Выводим описание и превью
+            // Вставляем содержимое в detail-box
             detailBox.innerHTML = `<h2>${ex.title}</h2><p>${ex.desc}</p><div class="preview-area">${codeHtml}</div><div class="code-block"></div>`;
             detailBox.style.display = 'block'; // Показываем detail box
 
-            // Находим блок кода и безопасно вставляем содержимое
+            // Находим блок кода и вставляем код как текст
             const codeBlock = detailBox.querySelector('.code-block');
             if (codeBlock) {
                 let fullCode = escapedHtml + '<style>' + escapedCss + '</style>';
                 if (codeJs) {
                     fullCode += '<script>' + escapedJs + '</script>';
                 }
-                codeBlock.textContent = fullCode; // <-- используем textContent, чтобы код отображался как текст
+                codeBlock.textContent = fullCode;
 
-                // Убираем старые слушатели (если есть)
+                // Убираем старые слушатели с кнопок в preview, чтобы избежать дублирования
                 removeEventListeners();
 
-                // Добавляем функциональность только для JS-примеров (в preview)
-                // Это нужно делать после вставки кода, иначе элементы могут не существовать
+                // Выполняем JS для демонстрации (только если он есть)
                 if (ex.js) {
                     try {
                         eval(ex.js);
@@ -401,18 +418,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const examplesId = `${sectionId}-${section}-examples`;
         const examplesEl = document.getElementById(examplesId);
         if (examplesEl) {
-            const firstExample = examplesEl.querySelector('.example-card');
-            if (firstExample) {
-                const exampleId = firstExample.dataset.example;
-                // Проверяем, существует ли пример перед инициализацией
-                if (examplesData[exampleId]) {
-                    // Найдём кнопку внутри первого примера и симулируем клик по ней
-                    const firstExampleBtn = firstExample.querySelector('button');
-                    if (firstExampleBtn) {
-                        firstExampleBtn.click();
-                    }
-                } else {
-                    console.warn(`Первый пример с ID "${exampleId}" в разделе "${sectionId}" не найден в examplesData.`);
+            const firstExampleCard = examplesEl.querySelector('.example-card');
+            if (firstExampleCard) {
+                const firstExampleBtn = firstExampleCard.querySelector('button');
+                if (firstExampleBtn) {
+                    // Симулируем клик по кнопке первого примера
+                    firstExampleBtn.click();
                 }
             }
         }
