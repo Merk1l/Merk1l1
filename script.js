@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Круглое изображение',
             desc: 'Круглое изображение с border-radius.',
             html: '<img src="https://placehold.co/200x200/ff0000/ffffff?text=:)" alt="Круг" class="rounded-img" />',
-            css: `.rounded-img {width: 100px;height: 100px;border-radius: 50%;object-fit: cover;overflow: hidden;}`
+            css: `.rounded-img {width: 100px;height: 100px;border-radius: 50%;object-fit: cover;overflow: hidden; display: block; margin: 0 auto;}`
         },
         'video-embed': {
             title: 'Видео',
@@ -327,14 +327,14 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         'card-hover': {
             title: 'Карточка с hover',
-            desc: 'Карточка с эффектом при наведении (теперь без анимации).',
+            desc: 'Карточка с эффектом при наведении.',
             html: `
                 <div class="card-hover">
                     <h3>Заголовок</h3>
                     <p>Описание карточки.</p>
                 </div>
             `,
-            css: `.card-hover {background: #f8f9fa;padding: 15px;border-radius: 8px;box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Убраны: transition, transform */}`
+            css: `.card-hover {background: #f8f9fa;padding: 15px;border-radius: 8px;box-shadow: 0 2px 4px rgba(0,0,0,0.1);transition: transform 0.3s ease, box-shadow 0.3s ease;}.card-hover:hover {transform: translateY(-5px);box-shadow: 0 4px 8px rgba(0,0,0,0.2);}`
         },
         'card-toggle': {
             title: 'Переключение карточек',
@@ -517,25 +517,39 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Кастомные табы',
             desc: 'Переключение между вкладками.',
             html: `
-                <div>
-                    <button class="tab-btn active" data-tab="tab1">Вкладка 1</button>
-                    <button class="tab-btn" data-tab="tab2">Вкладка 2</button>
-                    <button class="tab-btn" data-tab="tab3">Вкладка 3</button>
+                <div class="ux-tabs">
+                    <div class="ux-tab-btns">
+                        <button class="ux-tab-btn active" data-tab="tab1">Вкладка 1</button>
+                        <button class="ux-tab-btn" data-tab="tab2">Вкладка 2</button>
+                        <button class="ux-tab-btn" data-tab="tab3">Вкладка 3</button>
+                    </div>
+                    <div id="tab1" class="ux-tab-content active">Содержимое вкладки 1</div>
+                    <div id="tab2" class="ux-tab-content">Содержимое вкладки 2</div>
+                    <div id="tab3" class="ux-tab-content">Содержимое вкладки 3</div>
                 </div>
-                <div id="tab1" class="tab-content active">Содержимое вкладки 1</div>
-                <div id="tab2" class="tab-content">Содержимое вкладки 2</div>
-                <div id="tab3" class="tab-content">Содержимое вкладки 3</div>
             `,
             js: `
-                document.querySelectorAll('.tab-btn').forEach(btn => {
+                document.querySelectorAll('.ux-tab-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
-                        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                        document.querySelectorAll('.ux-tab-btn').forEach(b => b.classList.remove('active'));
+                        document.querySelectorAll('.ux-tab-content').forEach(c => c.classList.remove('active'));
                         btn.classList.add('active');
                         const tabId = btn.getAttribute('data-tab');
                         document.getElementById(tabId).classList.add('active');
                     });
                 });
+            `
+        },
+        'ux-slider': {
+            title: 'Кастомный слайдер',
+            desc: 'Интерактивный слайдер значений.',
+            html: `<input type="range" min="0" max="100" value="50" class="custom-slider" id="uxSlider"/><span id="uxSliderValue">50</span>`,
+            css: `.custom-slider {-webkit-appearance: none;width: 100%;height: 10px;border-radius: 5px;background: #d3d3d3;outline: none;}.custom-slider::-webkit-slider-thumb {-webkit-appearance: none;appearance: none;width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}.custom-slider::-moz-range-thumb {width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}`,
+            js: `
+                const slider = document.getElementById('uxSlider');
+                const output = document.getElementById('uxSliderValue');
+                output.textContent = slider.value;
+                slider.oninput = function() {output.textContent = this.value;};
             `
         },
         // Виджеты
