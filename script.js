@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme) {
         document.body.setAttribute('data-theme', currentTheme);
-        themeBtn.textContent = currentTheme === 'dark' ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+        themeBtn.textContent = currentTheme === 'dark' ? '☀️ 1Светлая тема' : '🌙 Тёмная тема';
     }
 
     themeBtn.addEventListener('click', () => {
@@ -442,6 +442,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const newTheme = isDark ? 'light' : 'dark';
         document.body.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        themeBtn.textContent = newTheme === 'dark' ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+        themeBtn.textContent = newTheme === 'dark' ? '☀️ 1Светлая тема' : '🌙 Тёмная тема';
     });
 });
