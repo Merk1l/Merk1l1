@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Примеры и их содержимое
+    // --- Определение примеров ---
     const examples = {
         // Типографика
         'typo-responsive': {
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'js-alert': {
             title: 'alert()',
             desc: 'Простое всплывающее окно.',
-            html: '<button class="btn-basic" id="alertBtn">Показать alert</button>', // Используем btn-basic
+            html: '<button class="btn-basic" id="alertBtn">Показать alert</button>',
             js: `document.getElementById('alertBtn').addEventListener('click', () => {alert('Привет из JavaScript!');});`
         },
         'js-toggle': {
@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
             html: `
                 <form class="basic-form">
                     <label>Имя:</label>
-                    <input type="text"> <!-- Убран required -->
+                    <input type="text">
                     <label>Email:</label>
-                    <input type="email"> <!-- Убран required -->
+                    <input type="email">
                     <button type="submit">Отправить</button>
                 </form>
             `,
@@ -622,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Переключение вкладок (CSS/JS) в каждом разделе
+    // --- Переключение вкладок (CSS/JS) в каждом разделе ---
     document.querySelectorAll('.section-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const section = btn.dataset.section;
@@ -647,20 +647,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Обработчик клика по примерам
+    // --- Обработчик клика по кнопкам "Пример" ---
+    // Теперь обработчик вешается на кнопку внутри .example-card
     document.querySelectorAll('.example-card button').forEach(button => {
         button.addEventListener('click', function(e) {
-            e.stopPropagation(); // Останавливаем всплытие, чтобы не срабатывал клик на .example-card
-            const exampleId = this.closest('.example-card').dataset.example;
-            const ex = examples[exampleId];
-            if (!ex) return;
+            e.stopPropagation(); // Останавливаем всплытие, чтобы не срабатывал клик на .example-card, если он есть
+            const exampleCard = this.closest('.example-card');
+            if (!exampleCard) return;
 
-            const sectionId = this.closest('section').id;
+            const exampleId = exampleCard.dataset.example;
+            const ex = examples[exampleId];
+            if (!ex) {
+                console.error(`Пример с ID "${exampleId}" не найден в объекте examples.`);
+                return;
+            }
+
+            const sectionId = exampleCard.closest('section').id;
             const detailBoxId = `${sectionId}-detail`;
             const detailBox = document.getElementById(detailBoxId);
 
             if (!detailBox) {
-                console.error(`detailBox с ID ${detailBoxId} не найден.`);
+                console.error(`detailBox с ID "${detailBoxId}" не найден.`);
                 return;
             }
 
@@ -701,7 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Удаляем все event listeners из preview-кнопок
+    // --- Удаляем все event listeners из preview-кнопок ---
     function removeEventListeners() {
         const previewBtns = document.querySelectorAll('.preview-area button');
         previewBtns.forEach(btn => {
@@ -715,14 +722,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 
-    // Инициализация: показываем первый пример в каждом разделе
+    // --- Инициализация: показываем первый пример в каждом разделе ---
     document.querySelectorAll('.section-btn.active').forEach(btn => {
         const section = btn.dataset.section;
         const sectionId = btn.closest('section').id;
         const examplesId = `${sectionId}-${section}-examples`;
-        const firstExampleBtn = document.querySelector(`#${examplesId} .example-card button`);
-        if (firstExampleBtn) {
-            firstExampleBtn.click(); // Симулируем клик по первой кнопке примера
+        const examplesEl = document.getElementById(examplesId);
+        if (examplesEl) {
+            const firstExampleBtn = examplesEl.querySelector('.example-card button'); // Находим кнопку внутри первого примера
+            if (firstExampleBtn) {
+                firstExampleBtn.click(); // Симулируем клик по первой кнопке примера
+            }
         }
     });
 
