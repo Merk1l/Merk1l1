@@ -498,4 +498,247 @@ document.addEventListener('DOMContentLoaded', () => {
         'ux-scrollbar': {
             title: 'Кастомный скроллбар',
             desc: 'Стилизованный скроллбар.',
-            html: `<div class="custom-scrollbar" style="height: 150px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;"><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы
+            html: `<div class="custom-scrollbar" style="height: 150px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;"><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p></div>`,
+            css: `.custom-scrollbar::-webkit-scrollbar {width: 12px;}.custom-scrollbar::-webkit-scrollbar-track {background: #f1f1f1;border-radius: 10px;}.custom-scrollbar::-webkit-scrollbar-thumb {background: #888;border-radius: 10px;}.custom-scrollbar::-webkit-scrollbar-thumb:hover {background: #555;}`
+        },
+        'ux-checkbox': {
+            title: 'Кастомный чекбокс',
+            desc: 'Стилизованный чекбокс.',
+            html: `<label class="custom-checkbox-container"><input type="checkbox"><span class="checkmark"></span>Отметь меня</label>`,
+            css: `.custom-checkbox-container {display: block;position: relative;padding-left: 35px;margin-bottom: 12px;cursor: pointer;font-size: 16px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}.custom-checkbox-container input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}.checkmark {position: absolute;top: 0;left: 0;height: 20px;width: 20px;background-color: #eee;border-radius: 4px;}.checkmark:after {content: "";position: absolute;display: none;}.custom-checkbox-container input:checked ~ .checkmark {background-color: #0d6efd;}.custom-checkbox-container input:checked ~ .checkmark:after {display: block;}.custom-checkbox-container .checkmark:after {left: 7px;top: 3px;width: 5px;height: 10px;border: solid white;border-width: 0 3px 3px 0;-webkit-transform: rotate(45deg);-ms-transform: rotate(45deg);transform: rotate(45deg);}`
+        },
+        'ux-tabs': {
+            title: 'Кастомные табы',
+            desc: 'Переключение между вкладками.',
+            html: `
+                <div class="ux-tabs">
+                    <div class="ux-tab-btns">
+                        <button class="ux-tab-btn active" data-tab="tab1">Вкладка 1</button>
+                        <button class="ux-tab-btn" data-tab="tab2">Вкладка 2</button>
+                        <button class="ux-tab-btn" data-tab="tab3">Вкладка 3</button>
+                    </div>
+                    <div id="tab1" class="ux-tab-content active">Содержимое вкладки 1</div>
+                    <div id="tab2" class="ux-tab-content">Содержимое вкладки 2</div>
+                    <div id="tab3" class="ux-tab-content">Содержимое вкладки 3</div>
+                </div>
+            `,
+            js: `
+                document.querySelectorAll('.ux-tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.ux-tab-btn').forEach(b => b.classList.remove('active'));
+                        document.querySelectorAll('.ux-tab-content').forEach(c => c.classList.remove('active'));
+                        btn.classList.add('active');
+                        const tabId = btn.getAttribute('data-tab');
+                        document.getElementById(tabId).classList.add('active');
+                    });
+                });
+            `
+        },
+        'ux-slider': {
+            title: 'Кастомный слайдер',
+            desc: 'Интерактивный слайдер значений.',
+            html: `<input type="range" min="0" max="100" value="50" class="custom-slider" id="uxSlider"/><span id="uxSliderValue">50</span>`,
+            css: `.custom-slider {-webkit-appearance: none;width: 100%;height: 10px;border-radius: 5px;background: #d3d3d3;outline: none;}.custom-slider::-webkit-slider-thumb {-webkit-appearance: none;appearance: none;width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}.custom-slider::-moz-range-thumb {width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}`,
+            js: `
+                const slider = document.getElementById('uxSlider');
+                const output = document.getElementById('uxSliderValue');
+                output.textContent = slider.value;
+                slider.oninput = function() {output.textContent = this.value;};
+            `
+        },
+        // Виджеты
+        'progress-bar': {
+            title: 'Прогресс-бар',
+            desc: 'Индикатор выполнения.',
+            html: `<div class="progress-container"><div class="progress-bar" id="progressBar" style="width: 0%; height: 20px; background: #0d6efd;"></div></div><button id="fillProgress">Заполнить</button>`,
+            css: `.progress-container {width: 100%;background: #e9ecef;border-radius: 10px;overflow: hidden;height: 20px;margin: 10px 0;}.progress-bar {height: 100%;background: #0d6efd;transition: width 0.3s;}`,
+            js: `
+                const fillBtn = document.getElementById('fillProgress');
+                const bar = document.getElementById('progressBar');
+                fillBtn.addEventListener('click', () => {
+                    bar.style.width = '100%';
+                });
+            `
+        },
+        'calendar': {
+            title: 'Календарь',
+            desc: 'Простой календарь.',
+            html: `<div class="calendar"><h3 id="calendarMonth">Ноябрь 2025</h3><div class="calendar-grid" id="calendarGrid"></div></div>`,
+            js: `
+                function generateCalendar(year, month) {
+                    const date = new Date(year, month);
+                    const firstDay = new Date(year, month, 1).getDay();
+                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                    const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+                    document.getElementById('calendarMonth').textContent = monthNames[month] + ' ' + year;
+
+                    const grid = document.getElementById('calendarGrid');
+                    grid.innerHTML = ''; // Очищаем сетку
+
+                    // Дни недели
+                    const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+                    weekdays.forEach(day => {
+                        const dayEl = document.createElement('div');
+                        dayEl.className = 'calendar-day';
+                        dayEl.textContent = day;
+                        grid.appendChild(dayEl);
+                    });
+
+                    // Пустые ячейки до первого дня
+                    for (let i = 0; i < firstDay; i++) {
+                        const emptyCell = document.createElement('div');
+                        emptyCell.className = 'calendar-date';
+                        grid.appendChild(emptyCell);
+                    }
+
+                    // Дни месяца
+                    const today = new Date();
+                    for (let i = 1; i <= daysInMonth; i++) {
+                        const dateEl = document.createElement('div');
+                        dateEl.className = 'calendar-date';
+                        dateEl.textContent = i;
+                        if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
+                            dateEl.classList.add('today');
+                        }
+                        grid.appendChild(dateEl);
+                    }
+                }
+
+                generateCalendar(2025, 10); // Ноябрь 2025
+            `
+        },
+        'slider': {
+            title: 'Слайдер',
+            desc: 'Интерактивный слайдер значений.',
+            html: `<input type="range" min="0" max="100" value="50" class="custom-slider" id="jsSlider"/><span id="jsSliderValue">50</span>`,
+            css: `.custom-slider {-webkit-appearance: none;width: 100%;height: 10px;border-radius: 5px;background: #d3d3d3;outline: none;}.custom-slider::-webkit-slider-thumb {-webkit-appearance: none;appearance: none;width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}.custom-slider::-moz-range-thumb {width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}`,
+            js: `
+                const slider = document.getElementById('jsSlider');
+                const output = document.getElementById('jsSliderValue');
+                output.textContent = slider.value;
+                slider.oninput = function() {output.textContent = this.value;};
+            `
+        }
+    };
+
+    // Переключение вкладок (CSS/JS) в каждом разделе
+    document.querySelectorAll('.section-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const section = btn.dataset.section;
+            const sectionId = btn.closest('section').id;
+            const nav = btn.closest('.section-nav');
+            const detailBoxId = `${sectionId}-detail`;
+            const detailBox = document.getElementById(detailBoxId);
+
+            // Убираем активные классы
+            nav.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
+            const examplesId = `${sectionId}-${section}-examples`;
+            document.querySelectorAll('.examples').forEach(ex => ex.classList.remove('active'));
+            document.getElementById(examplesId).classList.add('active');
+
+            // Добавляем активный класс кнопке
+            btn.classList.add('active');
+
+            // Сбрасываем detail box
+            if (detailBox) {
+                detailBox.style.display = 'none';
+            }
+        });
+    });
+
+    // Обработчик клика по примерам
+    document.querySelectorAll('.example-card button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation(); // Останавливаем всплытие, чтобы не срабатывал клик на .example-card
+            const exampleId = this.closest('.example-card').dataset.example;
+            const ex = examples[exampleId];
+            if (!ex) return;
+
+            const sectionId = this.closest('section').id;
+            const detailBoxId = `${sectionId}-detail`;
+            const detailBox = document.getElementById(detailBoxId);
+
+            if (!detailBox) {
+                console.error(`detailBox с ID ${detailBoxId} не найден.`);
+                return;
+            }
+
+            let codeHtml = ex.html;
+            let codeCss = ex.css || '';
+            let codeJs = ex.js || '';
+
+            // Экранируем HTML/JS для безопасного отображения
+            const escapedHtml = escapeHtml(codeHtml);
+            const escapedCss = escapeHtml(codeCss);
+            const escapedJs = escapeHtml(codeJs);
+
+            // Выводим описание и превью
+            detailBox.innerHTML = `<h2>${ex.title}</h2><p>${ex.desc}</p><div class="preview-area">${codeHtml}</div><div class="code-block"></div>`;
+            detailBox.style.display = 'block'; // Показываем detail box
+
+            // Находим блок кода и безопасно вставляем содержимое
+            const codeBlock = detailBox.querySelector('.code-block');
+            if (codeBlock) {
+                let fullCode = escapedHtml + '<style>' + escapedCss + '</style>';
+                if (codeJs) {
+                    fullCode += '<script>' + escapedJs + '</script>';
+                }
+                codeBlock.textContent = fullCode; // <-- используем textContent, чтобы код отображался как текст
+
+                // Убираем старые слушатели (если есть)
+                removeEventListeners();
+
+                // Добавляем функциональность только для JS-примеров (в preview)
+                if (ex.js) {
+                    try {
+                        eval(ex.js);
+                    } catch (error) {
+                        console.error("Ошибка выполнения JS примера:", error);
+                    }
+                }
+            }
+        });
+    });
+
+    // Удаляем все event listeners из preview-кнопок
+    function removeEventListeners() {
+        const previewBtns = document.querySelectorAll('.preview-area button');
+        previewBtns.forEach(btn => {
+            // Создаём клон кнопки без событий
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+        });
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+
+    // Инициализация: показываем первый пример в каждом разделе
+    document.querySelectorAll('.section-btn.active').forEach(btn => {
+        const section = btn.dataset.section;
+        const sectionId = btn.closest('section').id;
+        const examplesId = `${sectionId}-${section}-examples`;
+        const firstExampleBtn = document.querySelector(`#${examplesId} .example-card button`);
+        if (firstExampleBtn) {
+            firstExampleBtn.click(); // Симулируем клик по первой кнопке примера
+        }
+    });
+
+    // --- Тема ---
+    const themeBtn = document.getElementById('theme-btn');
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+        document.body.setAttribute('data-theme', currentTheme);
+        themeBtn.textContent = currentTheme === 'dark' ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+    }
+
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.body.getAttribute('data-theme') === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
+        document.body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        themeBtn.textContent = newTheme === 'dark' ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+    });
+});
