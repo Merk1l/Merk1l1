@@ -292,20 +292,20 @@ requestAnimationFrame(animateColor);`
         },
         // UX
         'ux-scrollbar': {
-            title: 'Кастомный скроллбар',
-            desc: 'Стилизованный скроллбар.',
+            title: 'Скроллбар',
+            desc: 'Обычный скроллбар.',
             html: `<div class="custom-scrollbar" style="height: 150px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;"><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p><p>Это длинный текст, чтобы появился скролл.</p></div>`,
             css: `.custom-scrollbar::-webkit-scrollbar {width: 12px;}.custom-scrollbar::-webkit-scrollbar-track {background: #f1f1f1;border-radius: 10px;}.custom-scrollbar::-webkit-scrollbar-thumb {background: #888;border-radius: 10px;}.custom-scrollbar::-webkit-scrollbar-thumb:hover {background: #555;}`
         },
         'ux-checkbox': {
-            title: 'Кастомный чекбокс',
-            desc: 'Стилизованный чекбокс.',
+            title: 'Чекбокс',
+            desc: 'Обычный чекбокс.',
             html: `<label class="custom-checkbox-container"><input type="checkbox"><span class="checkmark"></span>Отметь меня</label>`,
             css: `.custom-checkbox-container {display: block;position: relative;padding-left: 35px;margin-bottom: 12px;cursor: pointer;font-size: 16px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}.custom-checkbox-container input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}.checkmark {position: absolute;top: 0;left: 0;height: 20px;width: 20px;background-color: #eee;border-radius: 4px;}.checkmark:after {content: "";position: absolute;display: none;}.custom-checkbox-container input:checked ~ .checkmark {background-color: #0d6efd;}.custom-checkbox-container input:checked ~ .checkmark:after {display: block;}.custom-checkbox-container .checkmark:after {left: 7px;top: 3px;width: 5px;height: 10px;border: solid white;border-width: 0 3px 3px 0;-webkit-transform: rotate(45deg);-ms-transform: rotate(45deg);transform: rotate(45deg);}`
         },
         'ux-slider': {
-            title: 'Кастомный слайдер',
-            desc: 'Стилизованный слайдер.',
+            title: 'Слайдер',
+            desc: 'Обычный слайдер.',
             html: `<input type="range" min="0" max="100" value="50" class="custom-slider" id="slider"/><span id="sliderValue">50</span>`,
             css: `.custom-slider {-webkit-appearance: none;width: 100%;height: 10px;border-radius: 5px;background: #d3d3d3;outline: none;}.custom-slider::-webkit-slider-thumb {-webkit-appearance: none;appearance: none;width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}.custom-slider::-moz-range-thumb {width: 20px;height: 20px;border-radius: 50%;background: #0d6efd;cursor: pointer;}`,
             js: `const slider = document.getElementById('slider');const output = document.getElementById('sliderValue');output.textContent = slider.value;slider.oninput = function() {output.textContent = this.value;};`
@@ -631,4 +631,5 @@ function removeEventListeners() {
     btn.parentNode.replaceChild(newBtn, btn);
   });
 }
+
 });
