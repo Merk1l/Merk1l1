@@ -147,11 +147,38 @@ document.addEventListener('DOMContentLoaded', () => {
             css: `.card {background: #f8f9fa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}`
         },
         'card-hover': {
-            title: 'Карточка с hover',
-            desc: 'Карточка с эффектом при наведении.',
-            html: `<div class="card-hover"><h3>Заголовок</h3><p>Описание карточки.</p></div>`,
-            css: `.card-hover {background: #f8f9fa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;}.card-hover:hover {transform: translateY(-5px); box-shadow: 0 4px 8px rgba(0,0,0,0.2);}`
-        },
+  title: 'Карточка с hover',
+  desc: 'Карточка с эффектом при наведении.',
+  html: `<div class="card-hover-preview">
+  <h3>Заголовок</h3>
+  <p>Описание карточки.</p>
+</div>`,
+  css: `.card-hover-preview {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  width: 220px;
+  margin: 0 auto;
+}
+.card-hover-preview:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+.card-hover-preview h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+.card-hover-preview p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}`
+},
         'card-toggle': {
             title: 'Переключение карточек',
             desc: 'Показ/скрытие карточки по кнопке.',
@@ -177,12 +204,46 @@ document.addEventListener('DOMContentLoaded', () => {
             html: '<div class="spin-element">Крутись!</div>',
             css: `@keyframes spin {0% { transform: rotate(0deg); }100% { transform: rotate(360deg); }}.spin-element {display: inline-block;padding: 10px;background: #28a745;color: white;border-radius: 6px;cursor: pointer;}.spin-element:hover {animation: spin 2s linear infinite;}`
         },
-        'js-tween': {
-            title: 'Плавный tween',
-            desc: 'Плавное перемещение элемента.',
-            html: '<div id="tweenBox" style="width: 50px; height: 50px; background: #6f42c1; position: relative; left: 0;"></div>',
-            js: `const box = document.getElementById('tweenBox');let start = 0;const end = 300; // pxlet current = start;const duration = 1000; // mslet startTime = null;function animate(time) {if (!startTime) startTime = time;const elapsed = time - startTime;const progress = Math.min(elapsed / duration, 1);current = start + (end - start) * progress;box.style.left = current + 'px';if (progress < 1) {requestAnimationFrame(animate);}}requestAnimationFrame(animate);`
-        },
+        'js-color-tween': {
+  title: 'Плавное изменение цвета',
+  desc: 'Элемент плавно меняет цвет с помощью JavaScript.',
+  html: `<div id="colorBox" style="width: 100%; height: 100px; background: #6f42c1; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">Плавный цвет</div>`,
+  js: `const box = document.getElementById('colorBox');
+let startColor = [111, 66, 193]; // #6f42c1
+let endColor = [255, 0, 0];      // #ff0000
+let duration = 2000; // 2 секунды
+let startTime = null;
+
+function animateColor(currentTime) {
+  if (!startTime) startTime = currentTime;
+  const elapsed = currentTime - startTime;
+  const progress = Math.min(elapsed / duration, 1);
+
+  const r = Math.round(startColor[0] + (endColor[0] - startColor[0]) * progress);
+  const g = Math.round(startColor[1] + (endColor[1] - startColor[1]) * progress);
+  const b = Math.round(startColor[2] + (endColor[2] - startColor[2]) * progress);
+
+  box.style.backgroundColor = \`rgb(\${r}, \${g}, \${b})\`;
+
+  if (progress < 1) {
+    requestAnimationFrame(animateColor);
+  } else {
+    // Меняем направление: фиолетовый ↔ красный
+    if (startColor[0] === 111) {
+      startColor = [255, 0, 0];
+      endColor = [111, 66, 193];
+    } else {
+      startColor = [111, 66, 193];
+      endColor = [255, 0, 0];
+    }
+    startTime = null;
+    requestAnimationFrame(animateColor);
+  }
+}
+
+requestAnimationFrame(animateColor);`
+
+},
         // Модальные окна
         'modal-basic': {
             title: 'Простая модалка',
@@ -250,11 +311,40 @@ document.addEventListener('DOMContentLoaded', () => {
             js: `const slider = document.getElementById('slider');const output = document.getElementById('sliderValue');output.textContent = slider.value;slider.oninput = function() {output.textContent = this.value;};`
         },
         'ux-tabs': {
-            title: 'Кастомные табы',
-            desc: 'Переключение между вкладками.',
-            html: `<div class="ux-tabs"><div class="ux-tab-btns"><button class="ux-tab-btn active" data-tab="tab1">Вкладка 1</button><button class="ux-tab-btn" data-tab="tab2">Вкладка 2</button><button class="ux-tab-btn" data-tab="tab3">Вкладка 3</button></div><div id="tab1" class="ux-tab-content active">Содержимое вкладки 1</div><div id="tab2" class="ux-tab-content">Содержимое вкладки 2</div><div id="tab3" class="ux-tab-content">Содержимое вкладки 3</div></div>`,
-            css: `.ux-tabs {display: flex; flex-direction: column; align-items: flex-start; width: 100%;}.ux-tab-btns {display: flex; gap: 10px; margin-bottom: 10px;}.ux-tab-btn {padding: 8px 16px; background-color: #e9ecef; border: 1px solid #ccc; border-bottom: none; border-radius: 6px 6px 0 0; cursor: pointer; transition: background-color 0.2s;}.ux-tab-btn.active {background-color: var(--card-bg); border-bottom: 1px solid var(--card-bg); margin-bottom: -1px; z-index: 1;}.ux-tab-content {display: none; padding: 15px; border: 1px solid #ccc; border-radius: 0 6px 6px 6px; width: 100%; background-color: var(--card-bg);}.ux-tab-content.active {display: block;}`
-        },
+  title: 'Кастомные табы',
+  desc: 'Интерактивные табы.',
+  html: `<div class="tab-container">
+  <button class="tab-btn" data-tab="tab1">Вкладка 1</button>
+  <button class="tab-btn" data-tab="tab2">Вкладка 2</button>
+  <div class="tab-content" id="tab1">
+    <p>Содержимое первой вкладки</p>
+  </div>
+  <div class="tab-content" id="tab2">
+    <p>Содержимое второй вкладки</p>
+  </div>
+</div>`,
+  js: `// Инициализация: скрываем все вкладки при загрузке
+  document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
+  
+  // Устанавливаем первую вкладку как активную и показываем её
+  const firstTabBtn = document.querySelector('.tab-btn');
+  if (firstTabBtn) {
+    firstTabBtn.classList.add('active');
+    const firstTabId = firstTabBtn.getAttribute('data-tab');
+    document.getElementById(firstTabId).style.display = 'block';
+  }
+
+  // Обработчики кликов
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+      btn.classList.add('active');
+      const tabId = btn.getAttribute('data-tab');
+      document.getElementById(tabId).style.display = 'block';
+    });
+  });`
+},
         // Виджеты
         'progress-bar': {
             title: 'Прогресс-бар',
@@ -416,23 +506,43 @@ if (ex.js) {
         });
     });
 
-    // --- Инициализация: показываем первый пример в каждом разделе ---
-    document.querySelectorAll('.section-btn.active').forEach(btn => {
-        const section = btn.dataset.section;
-        const sectionId = btn.closest('section').id;
-        const examplesId = `${sectionId}-${section}-examples`;
-        const examplesEl = document.getElementById(examplesId);
-        if (examplesEl) {
-            const firstExampleCard = examplesEl.querySelector('.example-card');
-            if (firstExampleCard) {
-                const firstExampleBtn = firstExampleCard.querySelector('button');
-                if (firstExampleBtn) {
-                    // Симулируем клик по кнопке первого примера
-                    firstExampleBtn.click();
-                }
-            }
-        }
-    });
+    // Инициализация: показываем первый пример в каждом разделе, кроме 'ux-tabs'
+document.querySelectorAll('.section-btn.active').forEach(btn => {
+  const section = btn.dataset.section;
+  const sectionId = btn.closest('section').id;
+  const examplesId = `${sectionId}-${section}-examples`;
+  const examplesEl = document.getElementById(examplesId);
+  if (examplesEl) {
+    const firstExample = examplesEl.querySelector('.example-card');
+    if (firstExample) {
+      const exampleId = firstExample.dataset.example;
+      
+      // 🔥 Пропускаем автоматическую загрузку для 'ux-tabs'
+      if (exampleId === 'ux-tabs') {
+        return; // не показываем
+      }
+
+      let detailBoxId = `${sectionId}-detail`;
+      if (sectionId === 'typography') detailBoxId = 'typo-detail';
+      if (sectionId === 'buttons') detailBoxId = 'buttons-detail';
+      if (sectionId === 'forms') detailBoxId = 'forms-detail';
+      if (sectionId === 'navigation') detailBoxId = 'nav-detail';
+      if (sectionId === 'media') detailBoxId = 'media-detail';
+      if (sectionId === 'cards') detailBoxId = 'cards-detail';
+      if (sectionId === 'animations') detailBoxId = 'anim-detail';
+      if (sectionId === 'themes') detailBoxId = 'themes-detail';
+      if (sectionId === 'modals') detailBoxId = 'modals-detail';
+      if (sectionId === 'responsive') detailBoxId = 'responsive-detail';
+      if (sectionId === 'ux') detailBoxId = 'ux-detail';
+      if (sectionId === 'widgets') detailBoxId = 'widgets-detail';
+
+      const detailBox = document.getElementById(detailBoxId);
+      if (detailBox) {
+        showExample(exampleId, detailBox);
+      }
+    }
+  }
+});
 
     // --- Тема ---
     const themeBtn = document.getElementById('theme-btn');
@@ -449,4 +559,76 @@ if (ex.js) {
         localStorage.setItem('theme', newTheme);
         themeBtn.textContent = newTheme === 'dark' ? '☀️ Светлая тема' : '🌙 Тёмная тема';
     });
+    function showExample(id, detailBox) {
+  const ex = examplesData[id];
+  if (!ex) return;
+
+  let codeHtml = ex.html;
+  let codeCss = ex.css || '';
+  let codeJs = ex.js || '';
+
+  // ВСТАВЛЯЕМ СТИЛИ ПРЯМО В PREVIEW, чтобы hover и другие эффекты работали!
+  const previewContent = codeCss 
+    ? `${codeHtml}<style>${codeCss}</style>` 
+    : codeHtml;
+
+  // Формируем HTML для блока с деталями
+  detailBox.innerHTML = `
+    <h2>${ex.title}</h2>
+    <p>${ex.desc}</p>
+    <div class="preview-area">${previewContent}</div>
+    <div class="code-block"></div>
+  `;
+
+  detailBox.style.display = 'block';
+
+  // Подготавливаем код для отображения (экранируем)
+  const escapedHtml = escapeHtml(codeHtml);
+  const escapedCss = escapeHtml(codeCss);
+  const escapedJs = escapeHtml(codeJs);
+
+  let fullCode = escapedHtml + '\n<style>\n' + escapedCss + '\n</style>';
+  if (codeJs) {
+    fullCode += '\n<script>\n' + escapedJs + '\n</script>';
+  }
+
+  const codeBlock = detailBox.querySelector('.code-block');
+  if (codeBlock) {
+    codeBlock.textContent = fullCode;
+  }
+
+  // Удаляем старые слушатели, чтобы избежать дублирования
+  removeEventListeners();
+
+  // Выполняем JS, если он есть (самый надёжный способ — через <script>)
+  if (codeJs) {
+    setTimeout(() => {
+      try {
+        const script = document.createElement('script');
+        script.textContent = codeJs;
+        detailBox.querySelector('.preview-area').appendChild(script);
+      } catch (e) {
+        console.error('Ошибка выполнения JS:', e);
+      }
+    }, 10);
+  }
+}
+
+// Вспомогательные функции
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function removeEventListeners() {
+  const previewBtns = document.querySelectorAll('.preview-area button');
+  previewBtns.forEach(btn => {
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+  });
+}
 });
