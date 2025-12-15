@@ -108,12 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
             html: `<div class="mobile-menu"><button class="menu-toggle">☰</button><ul class="mobile-nav"><li><a href="#">Главная</a></li><li><a href="#">О нас</a></li><li><a href="#">Контакты</a></li></ul></div>`,
             css: `.mobile-menu {position: relative;}.mobile-nav {display: none; list-style: none; position: absolute; top: 100%; left: 0; background: var(--card-bg); padding: 10px; box-shadow: 0 2px 5px var(--shadow);}.mobile-nav.show {display: block;}.menu-toggle {background: none; border: none; font-size: 1.5rem; cursor: pointer;}`
         },
-        'nav-active': {
-            title: 'Активный пункт',
-            desc: 'Выделение активного пункта меню.',
-            html: `<ul class="active-nav"><li><a href="#" class="active">Главная</a></li><li><a href="#">О нас</a></li><li><a href="#">Контакты</a></li></ul>`,
-            css: `.active-nav {display: flex; gap: 20px; list-style: none;}.active-nav a {text-decoration: none; padding: 8px 16px; border-radius: 4px;}.active-nav a.active {background: #3498db; color: white;}`
-        },
         // Медиа
         'img-rounded': {
             title: 'Круглое изображение',
@@ -633,3 +627,4 @@ function removeEventListeners() {
 }
 
 });
+
