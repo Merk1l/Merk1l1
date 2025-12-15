@@ -213,6 +213,7 @@ section h2 {
   max-width: 900px;
   margin: 0 auto;
   font-size: 16px;
+  display: none; /* Скрыто по умолчанию */
 }
 
 .detail-box h2 {
@@ -378,27 +379,132 @@ section h2 {
   color: white;
   margin-top: 50px;
 }
-.rounded-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  overflow: hidden;
+
+/* --- Новые стили для конкретных примеров --- */
+
+/* Градиентный текст */
+.gradient-text {
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Стилизованная форма */
+.styled-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f8ff; /* Светло-голубой фон */
+  border-radius: 10px;
+  border: 2px solid #4682b4; /* Стальной синий бордер */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-.slider-img {
+
+.styled-form input,
+.styled-form select,
+.styled-form textarea {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
+
+.styled-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #4682b4;
+}
+
+.styled-form table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.styled-form th, .styled-form td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.styled-form th {
+  background-color: #e6e6fa;
+}
+
+/* Выпадающее меню */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  padding: 12px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.dropdown-content {
+  display: none; /* Скрыто по умолчанию */
+  position: absolute;
+  background-color: var(--card-bg);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: var(--text);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.2s;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block; /* Показывается при наведении */
+}
+
+/* Видео */
+.video-responsive {
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
 /* Анимации */
 .fade-element {
-  opacity: 0.5;
-  transition: opacity 0.3s;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
-.fade-element:hover {
+
+.fade-element.show {
   opacity: 1;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
 }
 
 .bounce-element {
@@ -409,28 +515,146 @@ section h2 {
   border-radius: 6px;
   cursor: pointer;
 }
+
 .bounce-element:hover {
   animation: bounce 0.5s ease infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-.spin-element {
-  width: 50px;
-  height: 50px;
-  background: #0d6efd;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.spin-element {
+  display: inline-block;
+  padding: 10px;
+  background: #28a745;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.spin-element:hover {
+  animation: spin 2s linear infinite;
+}
+
+/* CSS-модальное окно */
+.modal-overlay {
+  display: none; /* Скрыто по умолчанию */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+  z-index: 1000;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.modal-close-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Адаптивность */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.responsive-grid div {
+  padding: 15px;
+  background: #e9ecef;
+  text-align: center;
+  border-radius: 6px;
+}
+
+/* UX-табы */
+.tab-content {
+  display: none; /* Скрыто по умолчанию */
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Календарь */
+.calendar {
+  max-width: 300px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+}
+
+.calendar h3 {
+  margin: 0;
+  padding: 10px;
+  background-color: var(--accent);
+  color: white;
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 дней недели */
+  text-align: center;
+}
+
+.calendar-day {
+  padding: 8px;
+  font-weight: bold;
+  background-color: #e9ecef;
+}
+
+.calendar-date {
+  padding: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.calendar-date:hover {
+  background-color: #e9ecef;
+}
+
+.calendar-date.today {
+  background-color: #ffeb3b;
+  font-weight: bold;
+}
+
+/* Прогресс-бар */
+.progress-container {
+  width: 100%;
+  background: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 20px;
+  margin: 10px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #0d6efd;
+  transition: width 0.3s;
+  width: 0; /* Начальное значение */
 }

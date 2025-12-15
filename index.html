@@ -1,6 +1,94 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <style>
+  /* Скрытие/показ примеров */
+  .examples {
+    display: none;
+  }
+  .examples.active {
+    display: block;
+  }
+
+  /* Стили для навигации по вкладкам */
+  .section-nav {
+    margin: 15px 0;
+  }
+  .section-btn {
+    padding: 8px 16px;
+    margin-right: 10px;
+    background: #e9ecef;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .section-btn.active {
+    background: #0d6efd;
+    color: white;
+  }
+
+  /* Стили для карточек */
+  .example-card {
+    padding: 12px;
+    margin: 10px 0;
+    background: #f8f9fa;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .example-card:hover {
+    background: #e9ecef;
+  }
+
+  /* Блок с деталями */
+  .detail-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .preview-area {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+  }
+  .code-block {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
+    white-space: pre;
+    font-family: monospace;
+    font-size: 14px;
+  }
+</style>
+<style>
+  /* Адаптивный текст */
+  .responsive-text {
+    font-size: clamp(1rem, 4vw, 2.5rem);
+  }
+
+  /* Градиентный текст */
+  .gradient-text {
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  /* Печатающийся текст — стили не нужны, но для совместимости */
+  .typewriter-text {
+    font-size: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+</style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Веб-методичка: Полный гайд по HTML, CSS и JS</title>
@@ -27,11 +115,10 @@
       <li><a href="#media">5. Изображения и медиа</a></li>
       <li><a href="#cards">6. Карточки и сетки</a></li>
       <li><a href="#animations">7. Анимации и переходы</a></li>
-      <!-- Убран: 8. Темы и персонализация -->
-      <li><a href="#modals">8. Модальные окна и всплывающие элементы</a></li> <!-- Теперь 8 -->
-      <li><a href="#responsive">9. Адаптивность и мобильность</a></li> <!-- Теперь 9 -->
-      <li><a href="#ux">11. UX-улучшения</a></li> <!-- Теперь 11 -->
-      <li><a href="#widgets">12. Интерактивные виджеты</a></li> <!-- Теперь 12 -->
+      <li><a href="#modals">8. Модальные окна и всплывающие элементы</a></li>
+      <li><a href="#responsive">9. Адаптивность и мобильность</a></li>
+      <li><a href="#ux">11. UX-улучшения</a></li>
+      <li><a href="#widgets">12. Интерактивные виджеты</a></li>
     </ul>
   </nav>
 
@@ -55,20 +142,17 @@
             <p>Градиентный текст</p>
             <button class="btn-basic">Пример</button>
           </div>
-          <!-- Убран: 'typo-shadow' -->
         </div>
 
         <div class="examples" id="typography-js-examples">
-          <!-- Убран: 'typo-change' -->
           <div class="example-card" data-example="typo-typewriter">
             <p>Печатающийся текст</p>
             <button class="btn-basic">Пример</button>
           </div>
         </div>
 
-        <div class="detail-box" id="typo-detail">
+        <div class="detail-box" id="typography-detail"></div>
           <!-- Содержимое будет подставляться JS -->
-        </div>
       </div>
     </section>
 
@@ -131,11 +215,10 @@
             <p>Простая форма</p>
             <button class="btn-basic">Пример</button>
           </div>
-          <div class="example-card" data-example="form-styled"> <!-- Исправлено: теперь указывает на 'form-styled' -->
+          <div class="example-card" data-example="form-styled">
             <p>Стилизованная форма</p>
             <button class="btn-basic">Пример</button>
           </div>
-          <!-- Убран: 'form-grid' -->
         </div>
 
         <div class="examples" id="forms-js-examples">
@@ -190,7 +273,7 @@
           </div>
         </div>
 
-        <div class="detail-box" id="nav-detail">
+        <div class="detail-box" id="navigation-detail"></div>
           <!-- Содержимое будет подставляться JS -->
         </div>
       </div>
@@ -206,10 +289,7 @@
         </div>
 
         <div class="examples active" id="media-css-examples">
-          <div class="example-card" data-example="img-responsive">
-            <p>Адаптивное изображение</p>
-            <button class="btn-basic">Пример</button>
-          </div>
+          <!-- УБРАН: img-responsive -->
           <div class="example-card" data-example="img-rounded">
             <p>Круглое изображение</p>
             <button class="btn-basic">Пример</button>
@@ -237,8 +317,40 @@
       </div>
     </section>
 
+    <!-- Раздел 6: Карточки и сетки -->
+    <section id="cards">
+      <h2>6. Карточки и сетки</h2>
+      <div class="section-content">
+        <div class="section-nav">
+          <button class="section-btn active" data-section="css">CSS-карточки</button>
+          <button class="section-btn" data-section="js">JavaScript-карточки</button>
+        </div>
 
-    <!-- Раздел 7: Анимации и переходы -->
+        <div class="examples active" id="cards-css-examples">
+          <div class="example-card" data-example="card-basic">
+            <p>Базовая карточка</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+          <div class="example-card" data-example="card-hover">
+            <p>Карточка с hover</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="examples" id="cards-js-examples">
+          <div class="example-card" data-example="card-toggle">
+            <p>Переключение карточек</p>
+            <button class="btn-basic">Пример</button>
+          </div>
+        </div>
+
+        <div class="detail-box" id="cards-detail">
+          <!-- Содержимое будет подставляться JS -->
+        </div>
+      </div>
+    </section>
+
+     <!-- Раздел 7: Анимации и переходы -->
     <section id="animations">
       <h2>7. Анимации и переходы</h2>
       <div class="section-content">
@@ -267,11 +379,12 @@
           <!-- Убран: 'js-tween' дубль, оставлен один -->
         </div>
 
-        <div class="detail-box" id="anim-detail">
+        <div class="detail-box" id="animations-detail">
           <!-- Содержимое будет подставляться JS -->
         </div>
       </div>
     </section>
+
 
     <!-- Раздел 8: Модальные окна и всплывающие элементы -->
     <section id="modals">
@@ -283,10 +396,8 @@
         </div>
 
         <div class="examples active" id="modals-css-examples">
-          <!-- Убран: 'modal-basic' -->
-          <!-- Заменено: 'tooltip-basic' на 'pulse-button' (название изменено на 'Модалка') -->
-          <div class="example-card" data-example="pulse-button">
-            <p>Модалка</p> <!-- Название изменено -->
+          <div class="example-card" data-example="modal-basic">
+            <p>Простая модалка</p>
             <button class="btn-basic">Пример</button>
           </div>
         </div>
@@ -403,10 +514,6 @@
         </div>
 
         <div class="examples" id="widgets-js-examples">
-          <div class="example-card" data-example="tabs">
-            <p>Табы</p>
-            <button class="btn-basic">Пример</button>
-          </div>
           <div class="example-card" data-example="slider">
             <p>Слайдер</p>
             <button class="btn-basic">Пример</button>
